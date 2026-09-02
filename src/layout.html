@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="{{canonical}}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:site_name" content="{{siteName}}">
+<meta name="twitter:card" content="summary">
+{{verification}}
+<link rel="icon" href="{{base}}/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="{{base}}/style.css">
+{{adsenseHead}}
+{{jsonld}}
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+  <a class="logo" href="{{base}}/">⚡ {{siteName}}</a>
+  <nav class="nav">
+    <a href="{{base}}/video-converter/">Video</a>
+    <a href="{{base}}/audio-converter/">Audio</a>
+    <a href="{{base}}/image-converter/">Image</a>
+    <a href="{{base}}/convert/mov-to-mp4/">MOV to MP4</a>
+    <a href="{{base}}/convert/m4a-to-mp3/">M4A to MP3</a>
+    <a href="{{base}}/convert/webp-to-png/">WEBP to PNG</a>
+    <a href="{{base}}/all/">All conversions</a>
+  </nav>
+</div></header>
+<main class="wrap">
+{{content}}
+</main>
+<footer class="site-footer"><div class="wrap">
+  <p><strong>{{siteName}}</strong> — {{tagline}}</p>
+  <p class="muted">Files are converted on your device and never uploaded to any server. Conversion quality depends on your browser and hardware.</p>
+  <p class="links"><a href="{{base}}/all/">All conversions</a> · <a href="{{base}}/about/">About</a> · <a href="{{base}}/privacy/">Privacy</a> · <a href="{{base}}/contact/">Contact</a></p>
+  <p class="muted">© {{year}} {{siteName}}</p>
+</div></footer>
+{{scripts}}
+</body>
+</html>
