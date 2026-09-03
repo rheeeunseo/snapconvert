@@ -1,0 +1,19 @@
+name: Reminder (이메일 알림용 이슈 생성)
+# GitHub 이 이슈 생성 알림을 계정 이메일로 보내는 것을 이용한 예약 알림. 시간은 UTC (00:00 UTC = 09:00 KST).
+on:
+  schedule:
+    - cron: '0 0 17 9 *'   # 9월 17일: 애드센스 신청 (색인 2주 경과)
+  workflow_dispatch:
+permissions:
+  issues: write
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create reminder issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="[할 일] SnapConvert 애드센스 신청하기 — snapconvertapp.com 색인 확인 후"
+          BODY=$'2주가 지났습니다. 순서:\n\n1. 구글 서치콘솔(snapconvertapp.com) → 페이지 메뉴에서 색인된 페이지 수 확인 (30개 이상이면 OK)\n2. https://adsense.google.com → 사이트 추가 → snapconvertapp.com (calcmate 와 같은 애드센스 계정에 사이트만 추가)\n3. 애드센스 코드(ca-pub-으로 시작)를 복사\n4. 터미널에서 `cd /mnt/c/Users/dev03/snapconvert && claude` 실행 후 "애드센스 코드 ca-pub-xxxx 반영해줘" 라고 요청'
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body "$BODY"
