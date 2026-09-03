@@ -3,7 +3,7 @@ import { FORMATS, CATS, targetsFor, catOf } from './formats.mjs';
 export const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 export const base = config.basePath;
 export function ad(slot = 'inArticle') {
-  if (!config.adsenseClient) return `<div class="ad" data-slot="${slot}">Ad space (${slot})</div>`;
+  if (!config.adsenseClient) return process.env.AD_PLACEHOLDER ? `<div class="ad" data-slot="${slot}">Ad space (${slot})</div>` : '';
   const id = config.adsenseSlots[slot]; if (!id) return '';
   return `<div class="ad live"><ins class="adsbygoogle" style="display:block" data-ad-client="${config.adsenseClient}" data-ad-slot="${id}" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>`;
 }

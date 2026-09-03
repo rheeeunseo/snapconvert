@@ -73,7 +73,7 @@ table.grid tr.hl td{background:var(--brand-2);font-weight:700}
 .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:6px}
 .breadcrumb a{color:var(--muted)}
 /* converter widget */
-.drop{border:2px dashed #c9c3ea;border-radius:16px;padding:40px 20px;text-align:center;background:#faf9ff;cursor:pointer;transition:.15s}
+.drop{display:block;border:2px dashed #c9c3ea;border-radius:16px;padding:40px 20px;text-align:center;background:#faf9ff;cursor:pointer;transition:.15s}
 .drop:hover,.drop.over{border-color:var(--brand);background:var(--brand-2)}
 .drop .big-icon{font-size:40px}.drop .t{font-size:18px;font-weight:700;margin:8px 0 4px}.drop .d{color:var(--muted);font-size:14px}
 .drop input{display:none}
