@@ -44,4 +44,6 @@ await writeFile(path.join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap
 await writeFile(path.join(DIST, '404.html'), render({ path: '/404/', title: 'Page not found', description: 'This page does not exist.', content: `<h1>Page not found</h1><p><a href="${config.basePath}/">Back to home</a></p>` }));
 if (existsSync(path.join(ROOT, 'CNAME'))) await cp(path.join(ROOT, 'CNAME'), path.join(DIST, 'CNAME'));
 await writeFile(path.join(DIST, '.nojekyll'), '');
+// AdSense ads.txt (seller verification), only when a client ID is configured
+if (config.adsenseClient) await writeFile(path.join(DIST, 'ads.txt'), `google.com, ${config.adsenseClient.replace(/^ca-/, '')}, DIRECT, f08c47fec0942fa0\n`);
 console.log(`✔ ${n} pages → dist/ (${Date.now() - t0}ms) base="${config.basePath}" url=${config.siteUrl}`);
