@@ -17,6 +17,7 @@ jobs:
           ADSENSE_CLIENT: ${{ vars.ADSENSE_CLIENT }}
           GOOGLE_VERIFICATION: ${{ vars.GOOGLE_VERIFICATION }}
           BING_VERIFICATION: ${{ vars.BING_VERIFICATION }}
+          GA_ID: ${{ vars.GA_ID }}
         run: node build.mjs
       - uses: actions/upload-pages-artifact@v3
         with: { path: dist }
