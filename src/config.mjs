@@ -8,6 +8,8 @@ export const config = {
   contactEmail: '1122yukh@gmail.com',
   adsenseClient: process.env.ADSENSE_CLIENT || '',
   adsenseSlots: { top: '', inArticle: '', bottom: '' },
-  googleSiteVerification: '',
-  bingSiteVerification: '',
+  googleSiteVerification: process.env.GOOGLE_VERIFICATION || '',
+  bingSiteVerification: process.env.BING_VERIFICATION || '',
+  // IndexNow (Bing/Yandex 즉시 색인 요청). 키 파일: src/public/<key>.txt
+  indexNowKey: '5d45847d4aeab0ddfe80762b19c8352a',
 };
