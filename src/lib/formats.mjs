@@ -102,4 +102,14 @@ export function allPairs() {
 }
 // Popular pairs shown on the home page (rough global search demand order)
 export const POPULAR = [['mov', 'mp4'], ['mkv', 'mp4'], ['webm', 'mp4'], ['avi', 'mp4'], ['mp4', 'mp3'], ['mp4', 'gif'], ['m4a', 'mp3'], ['wav', 'mp3'], ['flac', 'mp3'], ['ogg', 'mp3'], ['mp3', 'wav'], ['webp', 'png'], ['webp', 'jpg'], ['png', 'jpg'], ['jpg', 'png'], ['png', 'webp'], ['avif', 'jpg'], ['svg', 'png'], ['png', 'ico'], ['mp4', 'webm']];
+// Pairs with real search demand. Only these (plus POPULAR) are indexed and listed in the sitemap;
+// the remaining pair pages still work but are marked noindex so near-identical pages are not indexed in bulk.
+const INDEXED_EXTRA = [
+  ['mov', 'mp3'], ['mkv', 'mp3'], ['webm', 'mp3'], ['avi', 'mp3'], ['mov', 'gif'], ['webm', 'gif'], ['mp4', 'mov'], ['mp4', 'avi'], ['mp4', 'mkv'], ['mp4', 'wav'],
+  ['flv', 'mp4'], ['wmv', 'mp4'], ['3gp', 'mp4'], ['mpg', 'mp4'], ['ts', 'mp4'], ['m4v', 'mp4'],
+  ['m4a', 'wav'], ['mp3', 'm4a'], ['wav', 'flac'], ['flac', 'wav'], ['aac', 'mp3'], ['opus', 'mp3'], ['wma', 'mp3'], ['aiff', 'mp3'], ['aiff', 'wav'], ['mp3', 'ogg'], ['wav', 'm4a'],
+  ['jpg', 'webp'], ['bmp', 'jpg'], ['bmp', 'png'], ['tiff', 'jpg'], ['tiff', 'png'], ['avif', 'png'], ['svg', 'jpg'], ['gif', 'png'], ['gif', 'jpg'], ['jpg', 'ico'], ['ico', 'png'],
+];
+const INDEXED = new Set([...POPULAR, ...INDEXED_EXTRA].map(([a, b]) => `${a}-${b}`));
+export const isIndexedPair = (from, to) => INDEXED.has(`${from}-${to}`);
 export const normalizeExt = (name) => { const e = (name.split('.').pop() || '').toLowerCase(); return e === 'jpeg' ? 'jpg' : e === 'tif' ? 'tiff' : e === 'mpeg' ? 'mpg' : e === 'oga' ? 'ogg' : e; };

@@ -5,7 +5,8 @@ import { fileURLToPath } from 'node:url';
 import { config } from './src/config.mjs';
 import { pages } from './src/pages/index.mjs';
 import { convertPage, hubPage, allPage } from './src/pages/convert.mjs';
-import { allPairs } from './src/lib/formats.mjs';
+import { allPairs, isIndexedPair } from './src/lib/formats.mjs';
+import { guides, guidePage, guideIndex } from './src/pages/guides.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(ROOT, 'dist');
@@ -20,14 +21,14 @@ function render(page) {
   const analytics = config.gaId
     ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${config.gaId}"></script>\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${config.gaId}');</script>`
     : '';
-  const vars = { title: page.title.includes(config.siteName) ? page.title : `${page.title} | ${config.siteName}`, description: page.description, canonical, siteName: config.siteName, tagline: config.tagline, base: config.basePath, year: new Date().getFullYear(), content: page.content, jsonld, verification, adsenseHead, analytics, scripts };
+  const vars = { title: page.title.includes(config.siteName) ? page.title : `${page.title} | ${config.siteName}`, description: page.description, canonical, siteName: config.siteName, tagline: config.tagline, base: config.basePath, year: new Date().getFullYear(), content: page.content, robots: page.noindex ? '<meta name="robots" content="noindex, follow">' : '', jsonld, verification, adsenseHead, analytics, scripts };
   return layout.replace(/\{\{(\w+)\}\}/g, (_, k) => (k in vars ? String(vars[k]) : ''));
 }
 async function emit(page) {
   const outDir = path.join(DIST, page.path);
   await mkdir(outDir, { recursive: true });
   await writeFile(path.join(outDir, 'index.html'), render(page));
-  urls.push({ loc: config.siteUrl + config.basePath + page.path, priority: page.priority ?? 0.6 });
+  if (!page.noindex) urls.push({ loc: config.siteUrl + config.basePath + page.path, priority: page.priority ?? 0.6 });
 }
 const t0 = Date.now();
 await rm(DIST, { recursive: true, force: true });
@@ -41,7 +42,9 @@ let n = 0;
 for (const p of pages) { await emit(p(ctx)); n++; }
 for (const cat of ['video', 'audio', 'image']) { await emit(hubPage(ctx, cat)); n++; }
 await emit(allPage(ctx)); n++;
-for (const [from, to] of allPairs()) { await emit(convertPage(ctx, from, to)); n++; }
+for (const [from, to] of allPairs()) { await emit({ ...convertPage(ctx, from, to), noindex: !isIndexedPair(from, to) }); n++; }
+await emit(guideIndex(ctx)); n++;
+for (const g of guides) { await emit(guidePage(ctx, g)); n++; }
 await writeFile(path.join(DIST, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${u.loc}</loc><priority>${u.priority}</priority></url>`).join('\n')}\n</urlset>\n`);
 await writeFile(path.join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${config.siteUrl}${config.basePath}/sitemap.xml\n`);
 await writeFile(path.join(DIST, '404.html'), render({ path: '/404/', title: 'Page not found', description: 'This page does not exist.', content: `<h1>Page not found</h1><p><a href="${config.basePath}/">Back to home</a></p>` }));
