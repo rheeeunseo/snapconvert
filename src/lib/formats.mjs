@@ -68,7 +68,8 @@ export function ffmpegArgs(to, quality = 'medium') {
     case 'jpg': return ['-frames:v', '1', '-f', 'image2', '-c:v', 'mjpeg', '-q:v', String([2, 4, 8][q]), '-pix_fmt', 'yuvj420p'];
     case 'bmp': return ['-frames:v', '1', '-f', 'image2', '-c:v', 'bmp'];
     case 'tiff': return ['-frames:v', '1', '-f', 'image2', '-c:v', 'tiff'];
-    case 'ico': return ['-frames:v', '1', '-vf', 'scale=256:256:force_original_aspect_ratio=decrease', '-c:v', 'png', '-f', 'ico'];
+    // format=rgba: the ico muxer rejects non-RGBA PNG, so opaque PNG and JPG sources failed without it
+    case 'ico': return ['-frames:v', '1', '-vf', 'scale=256:256:force_original_aspect_ratio=decrease,format=rgba', '-c:v', 'png', '-f', 'ico'];
     default: throw new Error('Unsupported target ' + to);
   }
 }

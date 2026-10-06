@@ -29,7 +29,7 @@ ${T(['Target', 'High', 'Medium', 'Small'], [
     ])}
 <p>For music, Medium (192 kbps MP3) is where most listeners stop hearing a difference. For speech, such as lectures and voice memos, Small is fine and OPUS at 64 kbps is the most efficient choice.</p>
 <h2>Images</h2>
-<p>JPG and WEBP use the browser's own encoder at quality 95, 85 and 70 (out of 100). PNG, BMP and TIFF are lossless, so the switch does nothing for them. The image keeps its original pixel dimensions; the one exception is ICO, which is scaled down to fit 256 × 256.</p>
+<p>JPG and WEBP use the browser's own encoder at quality 95, 85 and 70 (out of 100). PNG, BMP and TIFF are lossless, so the switch does nothing for them. The image keeps its original pixel dimensions; the one exception is ICO, which is resized to fit within 256 × 256.</p>
 <h2>GIF from video</h2>
 ${T(['Setting', 'Frame rate', 'Width'], [['High', '15 fps', '640 px'], ['Medium', '12 fps', '480 px'], ['Small', '8 fps', '320 px']])}
 <p>GIF is the one target where the setting changes size and smoothness, not just compression. See <a href="${base}/guides/video-to-gif/">making a GIF from a video</a> for how to keep the file manageable.</p>
@@ -155,6 +155,178 @@ ${T(['Setting', 'Frame rate', 'Width', 'Good for'], [
 <h2>When a GIF is the wrong tool</h2>
 <p>If the destination accepts video, a short MP4 looks better and is far smaller. Most social platforms convert uploaded GIFs to video behind the scenes anyway. Use a GIF when you need something that plays automatically with no player: documentation, README files, email, and forums that only allow images.</p>
 <p>Two more limits to keep in mind: GIFs have no sound, and the 256-colour palette makes smooth gradients such as skies and skin tones look banded. Screen recordings and animation survive the conversion much better than camera footage.</p>`,
+  },
+  {
+    slug: 'extract-audio-from-video', date: '2026-10-06',
+    title: 'Getting the audio out of a video: MP3, M4A or WAV',
+    description: 'How to save only the soundtrack of an MP4, MOV, MKV or WEBM file, which audio format to choose, and how large the result will be.',
+    html: `<p>A recorded lecture, an interview, a concert clip: often the picture does not matter and you only want the sound. Converting a video to an audio format drops the picture and keeps the soundtrack. It is also the fastest kind of conversion on this site, because no video has to be encoded.</p>
+<h2>What the converter does</h2>
+<ul><li><strong>The picture is discarded.</strong> Only the audio track is read.</li><li><strong>The audio is re-encoded</strong> to the format you pick. It is not copied out unchanged, so the quality setting applies.</li><li><strong>Sample rate and channels stay as they are.</strong> A 48 kHz stereo soundtrack comes out as 48 kHz stereo; a mono recording stays mono.</li><li><strong>One track is used.</strong> If the video has several audio tracks, for example two languages in an MKV, you get one of them, normally the track the file marks as its default.</li></ul>
+<h2>Which format to choose</h2>
+${T(['Target', 'Choose it when', 'Size per minute (stereo)'], [
+      ['MP3', 'It has to play on anything: phones, car stereos, old players', '1.4 MB at Medium (192 kbps)'],
+      ['M4A', 'You use Apple devices, or want slightly better sound at the same size', '1.4 MB at Medium (192 kbps)'],
+      ['WAV', 'You will edit the audio or feed it to transcription software', 'About 11.5 MB at 48 kHz, 16-bit'],
+      ['FLAC', 'You want a lossless copy that is smaller than WAV', 'Roughly half of WAV'],
+      ['OGG', 'A game engine or open-source tool asks for it', 'Similar to MP3'],
+    ])}
+<p>WAV and FLAC are lossless containers, but remember what goes into them: the soundtrack of an MP4 is already compressed, usually as AAC. Saving it as WAV preserves exactly what is there. It does not improve it. Choose WAV because a program requires it, not as an upgrade.</p>
+<h2>Speech or music?</h2>
+<p>For spoken recordings such as lectures, meetings and voice notes, the Small setting (128 kbps MP3) is more than enough, and an hour comes to about 58 MB. For music, use Medium or High. The exact bitrates behind each setting are in <a href="${base}/guides/quality-settings-explained/">the quality guide</a>.</p>
+<h2>Steps</h2>
+<ol class="steps"><li><strong>Open the converter for your file type:</strong> ${L('mp4', 'mp3', 'MP4 to MP3')}, ${L('mov', 'mp3', 'MOV to MP3')}, ${L('mkv', 'mp3', 'MKV to MP3')}, ${L('webm', 'mp3', 'WEBM to MP3')} or ${L('avi', 'mp3', 'AVI to MP3')}. For an uncompressed file use ${L('mp4', 'wav', 'MP4 to WAV')}.</li><li><strong>Pick the quality</strong> before adding the file.</li><li><strong>Drop the video in.</strong> The whole file is read into the tab, so a long recording needs a moment before the progress bar starts moving.</li></ol>
+<h2>Things to know</h2>
+<ul><li><strong>The whole soundtrack is converted.</strong> There is no trim tool. To keep one section, trim the video first with your phone or computer's built-in editor.</li><li><strong>A video with no audio track fails.</strong> Screen recordings made without a microphone are the usual case. The converter reports an error because there is nothing to extract.</li><li><strong>Large files still have to fit in memory.</strong> Extracting audio is quick, but the full video is loaded first. Files over 2 GB are refused.</li></ul>`,
+  },
+  {
+    slug: 'make-video-smaller', date: '2026-10-06',
+    title: 'Making a video small enough to send',
+    description: 'What decides the size of a video file, what the Small setting changes and what it leaves alone, and the options when the result is still too big.',
+    html: `<p>A one-minute phone video can be over 100 MB, and many email services stop at around 25 MB per message. Before converting, it helps to know what actually controls the size, because the converter changes only one of the three factors.</p>
+<h2>What decides the size of a video</h2>
+<ul><li><strong>Length.</strong> Twice as long is about twice as big.</li><li><strong>Resolution.</strong> A 4K frame has four times the pixels of a 1080p frame.</li><li><strong>How hard it is compressed.</strong> This is the part a converter controls.</li></ul>
+<p>Content matters too. A talking head against a still background compresses far better than handheld footage of a football match, at the same settings.</p>
+<h2>What this site changes, and what it does not</h2>
+${T(['', 'Changed by converting here?'], [
+      ['Compression strength', 'Yes. High, Medium and Small set it (CRF 20, 24, 28 for MP4)'],
+      ['Audio bitrate', 'Yes. 256, 192 or 128 kbps'],
+      ['Resolution', 'No. A 4K video stays 4K'],
+      ['Frame rate', 'No'],
+      ['Length', 'No. There is no trim tool'],
+    ])}
+<p>So ${L('mov', 'mp4', 'MOV to MP4')} on Small will shrink most phone recordings noticeably, but it cannot perform miracles on a long 4K clip, because the two biggest factors are untouched.</p>
+<h2>Do these first</h2>
+<ol class="steps"><li><strong>Trim.</strong> Cutting a 60-second clip to the 15 seconds that matter removes three quarters of the file before any conversion. Every phone's gallery app can do it.</li><li><strong>Convert on Small.</strong> Check the size shown on the download button.</li><li><strong>Still too big?</strong> Try the WEBM route below, or use one of the alternatives at the end.</li></ol>
+<h2>When you need a predictable size: WEBM</h2>
+<p>MP4 output is quality-based: the encoder uses as many bits as the picture needs, so the size cannot be known in advance. WEBM output on this site is bitrate-based, which makes the size roughly predictable from the length alone.</p>
+${T(['WEBM setting', 'Video bitrate', 'Approx. size per minute (picture only)'], [
+      ['High', '2 Mbps', '15 MB'],
+      ['Medium', '1 Mbps', '7.5 MB'],
+      ['Small', '500 kbps', '3.8 MB'],
+    ])}
+<p>Audio adds a little on top. At 500 kbps a high-resolution video will look soft, so this suits clips where being able to send it matters more than how sharp it is. WEBM plays in Chrome, Firefox, Edge and on Android; older iPhones and some messaging apps do not play it, so check with the recipient. Use ${L('mp4', 'webm', 'MP4 to WEBM')} for this.</p>
+<h2>Why the result is sometimes bigger</h2>
+<p>If the original was already compressed hard, for example a video that came through a messaging app, re-encoding it can produce a larger file. The encoder here runs in its fastest mode so that it is usable in a browser, and fast encoding is less efficient. When that happens, the original was already about as small as it will get at that resolution.</p>
+<h2>If it is still too large</h2>
+<ul><li><strong>Share a link instead.</strong> Cloud drives and most phones' share sheets can send a link to the full-quality file. Nothing is lost and there is no size limit to fight.</li><li><strong>Record at a lower resolution next time.</strong> 1080p instead of 4K cuts the file to a fraction, and few people watching on a phone can tell.</li><li><strong>Use a desktop encoder for resizing.</strong> Lowering the resolution is the most effective way to shrink a video, and it is not something this site does.</li></ul>`,
+  },
+  {
+    slug: 'old-video-formats-to-mp4', date: '2026-10-06',
+    title: 'MKV, AVI, WMV, FLV and other video formats: what they are and what converting to MP4 keeps',
+    description: 'Where MKV, AVI, WMV, FLV, 3GP, MPG and TS files come from, why they fail to play, and what is kept and dropped when you convert them to MP4.',
+    html: `<p>MP4 won. Phones, browsers, TVs and editing apps all expect it, and files in other containers are increasingly likely to be refused. Here is where the other formats come from and what happens when you convert them.</p>
+${T(['Format', 'Where it comes from', 'Typical problem'], [
+      ['MKV', 'Downloads, screen recorders such as OBS, disc backups', 'iPhones, many TVs and most upload forms will not open it'],
+      ['AVI', 'Windows software and cameras from the 1990s and 2000s', 'Large files; unsupported on phones and the web'],
+      ['WMV', 'Windows Media Player, old screen-capture tools', 'Does not play on Apple devices or in browsers'],
+      ['FLV', 'Flash-era websites and old downloaders', 'Flash is gone; almost nothing plays it'],
+      ['3GP', 'Feature phones before smartphones', 'Low resolution; modern apps often reject it'],
+      ['MPG', 'DVDs, camcorders, TV capture cards', 'Plays, but files are large for their quality'],
+      ['TS', 'Digital TV recordings, streaming captures', 'Meant for broadcast, not for sharing'],
+      ['M4V', 'iTunes purchases and exports', 'Nearly identical to MP4; protected files cannot be converted'],
+    ])}
+<h2>What converting to MP4 does here</h2>
+<p>The video is re-encoded as H.264 and the audio as AAC, the combination that plays almost everywhere. Converters: ${L('mkv', 'mp4', 'MKV')}, ${L('avi', 'mp4', 'AVI')}, ${L('wmv', 'mp4', 'WMV')}, ${L('flv', 'mp4', 'FLV')}, ${L('3gp', 'mp4', '3GP')}, ${L('mpg', 'mp4', 'MPG')}, ${L('ts', 'mp4', 'TS')} and ${L('m4v', 'mp4', 'M4V')} to MP4.</p>
+<h2>What is kept and what is dropped</h2>
+${T(['', 'In the MP4'], [
+      ['Picture', 'Kept, re-encoded at the quality you choose'],
+      ['Resolution and frame rate', 'Kept. An odd width or height is trimmed by one pixel, which H.264 requires'],
+      ['First or default audio track', 'Kept, re-encoded as AAC'],
+      ['Additional audio tracks', 'Dropped. Only one track is carried over'],
+      ['Subtitle tracks', 'Dropped'],
+      ['Chapters and attachments such as fonts', 'Do not rely on them surviving'],
+    ])}
+<p>This matters most for MKV, which is often used precisely because it can hold several languages and subtitle tracks. If you need a specific audio language or the subtitles, a desktop tool that lets you pick tracks is the right choice.</p>
+<h2>A faster route for some MKV files</h2>
+<p>Many MKV files already contain H.264 video. A desktop program can move those streams into an MP4 container without re-encoding, which takes seconds and loses no quality. This site always re-encodes, which is simpler and works for every input, but takes about as long as the video itself and costs a little quality. For one or two short files that is fine. For a folder of full-length films, use a desktop tool.</p>
+<h2>How long it takes</h2>
+<p>Expect roughly one to two minutes of processing per minute of 1080p video on a laptop. Older formats such as 3GP and low-resolution AVI convert much faster because there are far fewer pixels. Keep the tab open and in front while it works.</p>
+<h2>Do not expect it to look better</h2>
+<p>Converting a 320 × 240 clip from an old phone to MP4 makes it playable, not sharper. The resolution and the compression damage in the original are carried over as they are. Choose High for old footage so that no further detail is lost; the settings are listed in <a href="${base}/guides/quality-settings-explained/">the quality guide</a>.</p>
+<h2>Files that will not convert</h2>
+<ul><li><strong>Protected files.</strong> Purchased or rented films in M4V and WMV with DRM are encrypted and cannot be read.</li><li><strong>Damaged or partial downloads.</strong> If the file stops playing halfway in a media player, it will fail here too.</li><li><strong>Files over 2 GB.</strong> The whole file has to fit in the browser tab's memory.</li></ul>`,
+  },
+  {
+    slug: 'webm-vs-mp4', date: '2026-10-06',
+    title: 'WEBM vs MP4: which to use and when to convert',
+    description: 'Why screen recorders and browsers produce WEBM, where WEBM does not play, and what converting in either direction does on this site.',
+    html: `<p>WEBM and MP4 do the same job with different technology. MP4 normally carries H.264 video and AAC audio, both of which are patented formats that device makers license. WEBM was created by Google as an open, royalty-free alternative, using VP8 or VP9 video with Vorbis or Opus audio.</p>
+${T(['', 'WEBM', 'MP4'], [
+      ['Video codec', 'VP8, VP9 (sometimes AV1)', 'H.264, sometimes HEVC'],
+      ['Audio codec', 'Vorbis or Opus', 'AAC'],
+      ['Chrome, Firefox, Edge, Android', 'Plays', 'Plays'],
+      ['iPhone, iPad, Safari', 'Recent versions only', 'Plays'],
+      ['TVs, consoles, car screens', 'Rarely', 'Almost always'],
+      ['Video editors', 'Often not importable', 'Standard'],
+      ['Upload forms and messaging apps', 'Often rejected', 'Accepted'],
+    ])}
+<h2>Why you have a WEBM file</h2>
+<ul><li><strong>A browser recorded it.</strong> Browser-based screen recorders and meeting tools save WEBM because that is what the browser's built-in recorder produces.</li><li><strong>It was downloaded from a website.</strong> Sites that serve video to browsers often use WEBM to save bandwidth.</li><li><strong>A screen-capture app defaulted to it.</strong></li></ul>
+<h2>WEBM to MP4</h2>
+<p>This is the common direction: the file needs to go somewhere that only takes MP4. ${L('webm', 'mp4', 'WEBM to MP4')} re-encodes the video to H.264 and the audio to AAC. If you only need the sound, ${L('webm', 'mp3', 'WEBM to MP3')} is much quicker, and ${L('webm', 'gif', 'WEBM to GIF')} turns a short recording into an animation.</p>
+<p>One quirk of browser-recorded WEBM files: they are often written without a proper duration or seek index, so players cannot skip around in them. Converting to MP4 rebuilds the file and usually fixes this.</p>
+<h2>MP4 to WEBM</h2>
+<p>Converting the other way is mostly for web developers who want a smaller file for a background or autoplay video, with an MP4 as the fallback. On this site ${L('mp4', 'webm', 'MP4 to WEBM')} produces VP8 video and Vorbis audio at a fixed video bitrate.</p>
+${T(['Setting', 'Video bitrate'], [['High', '2 Mbps'], ['Medium', '1 Mbps'], ['Small', '500 kbps']])}
+<p>Two honest caveats. First, VP8 is the older WEBM codec; VP9 and AV1 compress better but are too slow to encode in a browser tab. Second, the encoder runs in its fastest real-time mode. The result is a valid, widely playable WEBM, but a desktop VP9 encode will be smaller at the same quality. If you are optimising a production website, treat the output here as a quick draft.</p>
+<h2>Which one should you keep?</h2>
+<ul><li><strong>Sending to people, uploading, editing:</strong> MP4.</li><li><strong>Embedding on your own website:</strong> offer both, WEBM first and MP4 as the fallback.</li><li><strong>Archiving a screen recording:</strong> keep the original WEBM and make an MP4 copy when you need one. Every conversion loses a little quality, so the original is the best master.</li></ul>
+<p>Transparency is one thing WEBM can do that MP4 cannot. A WEBM with a transparent background loses it when converted to MP4, and the transparent areas turn solid.</p>`,
+  },
+  {
+    slug: 'favicon-ico-from-png', date: '2026-10-06',
+    title: 'Making a favicon: PNG or JPG to ICO',
+    description: 'How to prepare an image for a favicon, exactly what the ICO file from this site contains, and the HTML needed to use it.',
+    html: `<p>A favicon is the small icon shown in a browser tab, in bookmarks and in history. The traditional format is ICO, and browsers still look for a file called <code>favicon.ico</code> at the top level of a site when a page does not say otherwise.</p>
+<h2>Prepare the image first</h2>
+<ul><li><strong>Make it square.</strong> Favicon slots are square. A non-square image is not cropped by the converter: it keeps its shape, so a wide logo becomes a wide, short icon that browsers then squeeze or pad. Crop to a square before converting.</li><li><strong>Start large.</strong> 256 × 256 pixels or more is ideal. A small source is enlarged to fit, which makes it blurry.</li><li><strong>Keep it simple.</strong> The icon is usually displayed at 16 or 32 pixels. A single letter or a simple shape survives; a full logo with text does not.</li><li><strong>Use transparency if you want it.</strong> A PNG with a transparent background keeps it in the ICO.</li></ul>
+<h2>What the ICO from this site contains</h2>
+${T(['Property', 'Value'], [
+      ['Images inside', 'One'],
+      ['Size', 'The source resized to fit within 256 × 256, keeping its shape'],
+      ['Encoding', 'PNG-compressed, 32-bit colour with transparency'],
+      ['Quality setting', 'No effect: the image is stored losslessly'],
+    ])}
+<p>ICO files can hold several sizes at once, classically 16, 32 and 48 pixels, so that each is drawn by hand for its size. The file produced here holds a single 256-pixel image and lets the browser scale it down. That is fine for a website favicon in any current browser. If you need a multi-size icon for a Windows application, use a dedicated icon editor.</p>
+<h2>Steps</h2>
+<ol class="steps"><li><strong>Convert</strong> with ${L('png', 'ico', 'PNG to ICO')} or ${L('jpg', 'ico', 'JPG to ICO')}.</li><li><strong>Rename</strong> the download to <code>favicon.ico</code>.</li><li><strong>Upload</strong> it to the top-level folder of your site, next to the home page.</li><li><strong>Add the link tag</strong> inside <code>&lt;head&gt;</code> on your pages:</li></ol>
+<pre><code>&lt;link rel="icon" href="/favicon.ico" sizes="any"&gt;</code></pre>
+<p>Browsers find <code>/favicon.ico</code> on their own, but the tag removes any doubt and is required if the file lives in a different folder.</p>
+<h2>Starting from an SVG</h2>
+<p>SVG to ICO is not offered directly. Convert ${L('svg', 'png', 'SVG to PNG')} first, then the PNG to ICO. The PNG is drawn at the size written in the SVG file, so if it comes out small, increase the <code>width</code> and <code>height</code> in the SVG and convert again.</p>
+<h2>The new icon does not show up</h2>
+<p>Browsers cache favicons aggressively, often for days. Before assuming the file is wrong:</p>
+<ul><li>Open <code>yoursite.com/favicon.ico</code> directly in the address bar. If the new image appears there, the file is correct.</li><li>Reload the page with the cache bypassed (Ctrl+Shift+R, or Cmd+Shift+R on a Mac), or open it in a private window.</li></ul>
+<h2>Going the other way</h2>
+<p>To pull the image out of an existing icon, use ${L('ico', 'png', 'ICO to PNG')}. If the icon holds several sizes you get one image from it, not all of them.</p>`,
+  },
+  {
+    slug: 'batch-conversion-and-errors', date: '2026-10-06',
+    title: 'Converting several files at once, and what the error messages mean',
+    description: 'How the file queue works, the ways to add files, and what each error message on SnapConvert means and how to get past it.',
+    html: `<p>Every converter page accepts more than one file. This guide covers how the queue behaves and what to do when a file fails.</p>
+<h2>Three ways to add files</h2>
+<ul><li><strong>Drag and drop</strong> one or many files onto the box.</li><li><strong>Click the box</strong> and select files; hold Ctrl or Shift (Cmd on a Mac) to select several.</li><li><strong>Paste.</strong> Copy a file, or a screenshot, and press Ctrl+V anywhere on the page. This is the quickest way to turn a screenshot on the clipboard into a JPG or WEBP file.</li></ul>
+<h2>How the queue works</h2>
+<ul><li><strong>Files are converted one at a time,</strong> in the order they were added. A failed file does not stop the ones after it.</li><li><strong>Set the target format and quality first.</strong> Each file takes the settings that are selected at the moment you add it. Changing the quality afterwards affects only files added later.</li><li><strong>Each result downloads automatically</strong> under the original name with the new extension. The download button stays in the list so you can save a file again without converting it twice.</li><li><strong>Your browser may ask for permission.</strong> When a page saves several files in a row, Chrome and other browsers show a prompt asking whether to allow multiple downloads. Choose Allow, or the later files will be blocked.</li><li><strong>Results live in the tab.</strong> Closing or reloading the page discards them, so save what you need first.</li></ul>
+<p>Dragged or pasted files do not all have to be the type named on the page, because each file is identified by its own extension. Dropping PNG, WEBP and BMP images together onto a JPG converter converts all of them. The file picker is stricter: it lists only the source type of the page you are on.</p>
+<h2>How many files is sensible?</h2>
+<p>For images, dozens at a time is no problem; each takes a fraction of a second. For audio, a full album is fine. For video, add a few at a time. Each video is loaded into memory whole while it is converted, and a long queue of large videos keeps the tab busy for a long while.</p>
+<h2>Error messages</h2>
+${T(['Message', 'What it means', 'What to do'], [
+      ['Unknown input format', 'The file extension is not one the site recognises. The format is read from the extension, not the contents', 'Check the extension. Files with no extension, and formats such as HEIC, PDF or DOCX, are not supported'],
+      ['Source and target are the same format', 'You added an MP3 to an MP3 converter, for example', 'Pick a different target format'],
+      ['Files over 2 GB are not supported in the browser', 'The file cannot fit in the memory a tab is allowed', 'Use a desktop program'],
+      ['Conversion failed (ffmpeg exit …)', 'The engine could not read or write the file', 'See the list below'],
+    ])}
+<h2>Why a conversion fails</h2>
+<ul><li><strong>The file is damaged or incomplete.</strong> Try playing it in a media player. If it stops early there, it will fail here.</li><li><strong>The file is copy-protected.</strong> Purchased films and some music downloads are encrypted.</li><li><strong>There is nothing to convert.</strong> Extracting audio from a video that has no soundtrack fails, because the output would be empty.</li><li><strong>The extension is wrong.</strong> A file renamed from one format to another may still convert, since the engine inspects the contents, but a mislabelled file can end up on the wrong path. Rename it to its true extension and try again.</li></ul>
+<h2>The tab freezes or crashes</h2>
+<p>A page that goes blank, or a browser message such as "Aw, Snap" or "This page was reloaded because it was using significant memory", means the tab ran out of memory. It happens with large videos, most often on phones.</p>
+<ul><li>Close other tabs and apps, then try again.</li><li>Convert the file on a laptop or desktop.</li><li>For video, trim the clip first so there is less to hold in memory.</li></ul>
+<h2>It seems stuck at the start</h2>
+<p>The first video or audio conversion downloads the 32 MB conversion engine, and the status line says so. On a slow connection that takes a while; it is cached afterwards. Images going to PNG, JPG or WEBP do not need the engine at all. Why the site works this way is explained in <a href="${base}/guides/how-browser-conversion-works/">how in-browser conversion works</a>.</p>`,
   },
 ];
 
