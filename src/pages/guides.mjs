@@ -328,6 +328,82 @@ ${T(['Message', 'What it means', 'What to do'], [
 <h2>It seems stuck at the start</h2>
 <p>The first video or audio conversion downloads the 32 MB conversion engine, and the status line says so. On a slow connection that takes a while; it is cached afterwards. Images going to PNG, JPG or WEBP do not need the engine at all. Why the site works this way is explained in <a href="${base}/guides/how-browser-conversion-works/">how in-browser conversion works</a>.</p>`,
   },
+  {
+    slug: 'are-online-file-converters-safe', date: '2026-10-12',
+    title: 'Are online file converters safe? What happens to a file you upload',
+    description: 'What a server-based converter can see and keep, which files should not be uploaded, the warning signs of a bad converter site, and the alternatives that keep a file on your own device.',
+    html: `<p>Searching for a converter and dropping a file into the first result is how most people do it. Usually nothing bad happens. But "usually" depends on what the file is and who runs the site, so it is worth knowing what you are actually agreeing to.</p>
+<h2>What happens when you upload</h2>
+<p>A server-based converter receives a complete copy of your file. It has to: the conversion runs on its machines. From that moment the copy is outside your control, and what happens next is decided by the operator.</p>
+<ul><li><strong>It is stored, at least briefly.</strong> Most services say they delete files after a period, commonly somewhere between an hour and a day. You cannot check that they do.</li><li><strong>It can be read.</strong> A connection over HTTPS protects the file on the way there. It does not protect it from the service itself.</li><li><strong>The download link is often the only lock.</strong> Many services hand back a link that works for anyone who has it, for as long as the file exists.</li><li><strong>Metadata goes with it.</strong> Photos carry location and device details; documents and recordings carry names and dates.</li></ul>
+<p>None of this means a given service misbehaves. It means you are trusting it, and with a well-known service and an unimportant file that is a reasonable trade.</p>
+<h2>Files that should not be uploaded</h2>
+${T(['Kind of file', 'Why it matters'], [
+      ['Photos or scans of ID, passports, bank cards', 'Enough to impersonate you if the copy leaks'],
+      ['Screen recordings', 'They capture whatever was on screen: messages, account numbers, notifications'],
+      ['Voice memos and call recordings', 'Other people are in them and did not agree to the upload'],
+      ['Work files under a confidentiality agreement', 'Uploading to a third party may itself be the breach'],
+      ['Medical, legal and financial documents', 'Sensitive by nature, and often regulated'],
+      ['Photos and videos of children', 'There is no way to take a copy back'],
+    ])}
+<h2>Warning signs on a converter site</h2>
+<ul><li><strong>It asks you to install something.</strong> A converter that needs a browser extension, a "download manager" or a desktop helper to finish the job is the most common route to adware.</li><li><strong>The result is not the file type you asked for.</strong> If you converted a video and the download ends in .exe, .msi, .dmg or .zip, do not open it.</li><li><strong>Several download buttons.</strong> Ads dressed up as download buttons are a sign the operator earns from misclicks.</li><li><strong>It asks for notification permission</strong> before letting you download.</li><li><strong>No privacy policy, or one that does not say how long files are kept.</strong></li></ul>
+<h2>Ways to convert without handing the file over</h2>
+<ul><li><strong>Tools already on your device.</strong> Preview on a Mac and Photos or Paint on Windows can save an image in another format. Phone gallery apps can trim video.</li><li><strong>Desktop programs.</strong> VLC and HandBrake are free, open source, and handle large videos better than any website.</li><li><strong>Converters that run in the browser.</strong> A newer kind of site does the conversion inside the page itself, so the file is read locally and never sent. This site is one of them.</li></ul>
+<h2>How to tell whether a site really converts locally</h2>
+<p>"Nothing is uploaded" is easy to write on a page. It is also easy to test, on this site or any other that makes the claim.</p>
+<ol class="steps"><li><strong>Load the page and convert one small file,</strong> so anything the page needs is downloaded.</li><li><strong>Disconnect from the internet.</strong> Switch off Wi-Fi or turn on airplane mode.</li><li><strong>Convert a second file.</strong> If it works, the conversion cannot be happening on a server.</li></ol>
+<p>The details of how this works here, and its limits, are in <a href="${base}/guides/how-browser-conversion-works/">how in-browser conversion works</a>.</p>
+<h2>When uploading is fine</h2>
+<p>For a file with nothing private in it, such as a logo, a meme or a public video, a reputable server-based converter is a perfectly good choice, and for very large files or document formats it is often the better one. In-browser conversion is limited by your device: on this site files over 2 GB are refused and long videos are slow. The point is not that uploading is always wrong. It is that the decision should depend on the file.</p>`,
+  },
+  {
+    slug: 'iphone-voice-memo-to-mp3', date: '2026-10-12',
+    title: 'Turning an iPhone voice memo into an MP3',
+    description: 'How to get a recording out of the Voice Memos app, convert the M4A file to MP3 or WAV on the phone or a computer, and when you do not need to convert at all.',
+    html: `<p>The Voice Memos app on an iPhone saves recordings as M4A files. That is a good format, but some upload forms, transcription tools and older players ask for MP3. Converting takes a few seconds; getting the file out of the app is the part people get stuck on.</p>
+<h2>Do you need to convert?</h2>
+<p>Often not. M4A plays on Windows, Android, every current browser and most car stereos. Convert when something specifically refuses the file: a form that accepts only MP3, software that wants WAV, or an older device.</p>
+<h2>Step 1: get the file out of Voice Memos</h2>
+<ol class="steps"><li><strong>Open Voice Memos and tap the recording.</strong></li><li><strong>Tap the three dots, then Share.</strong></li><li><strong>Choose Save to Files</strong> and pick a folder, for example On My iPhone. To convert on a computer instead, choose AirDrop or Mail here.</li></ol>
+<p>On a Mac with iCloud turned on for Voice Memos, the recordings also appear in the Voice Memos app there, and you can drag one straight to the desktop.</p>
+<h2>Step 2: convert it</h2>
+<ol class="steps"><li><strong>Open ${L('m4a', 'mp3', 'M4A to MP3')}</strong> in Safari on the phone, or in any browser on a computer.</li><li><strong>Pick the quality.</strong> For speech, Small is enough.</li><li><strong>Tap the drop area and choose the file</strong> from the folder you saved it to.</li></ol>
+<p>The first conversion downloads the 32 MB conversion engine, so use Wi-Fi if mobile data is tight. On an iPhone the MP3 is saved to the Downloads folder in the Files app. The recording itself is not uploaded; it is converted on the phone.</p>
+<h2>Which setting to use</h2>
+${T(['Setting', 'MP3 bitrate', 'Size of a one-hour recording', 'Use it for'], [
+      ['Small', '128 kbps', 'About 58 MB', 'Speech: lectures, meetings, interviews'],
+      ['Medium', '192 kbps', 'About 86 MB', 'Music rehearsals, anything with instruments'],
+      ['High', '256 kbps', 'About 115 MB', 'Rarely worth it for a phone recording'],
+    ])}
+<p>A voice memo is already compressed, so a higher setting cannot add quality that was not recorded. It only makes the file bigger. The MP3 is often larger than the original M4A even on Small; that is normal.</p>
+<h2>If the file is for transcription or editing</h2>
+<p>Use ${L('m4a', 'wav', 'M4A to WAV')} instead. WAV is uncompressed, which avoids compressing the recording a second time, and almost every transcription and editing program accepts it. The cost is size: several times larger than the MP3.</p>
+<h2>Things that go wrong</h2>
+<ul><li><strong>The recording does not appear in the file picker.</strong> It is still only inside Voice Memos. Do the Save to Files step first.</li><li><strong>A long recording makes the tab reload on the phone.</strong> The whole file is held in memory. Recordings of several hours are better converted on a computer.</li><li><strong>The memo was recorded with Lossless turned on.</strong> It is still an M4A file and converts the same way, but the original is much larger.</li><li><strong>Several memos at once.</strong> Select them all in the file picker; they are converted one after another. See <a href="${base}/guides/batch-conversion-and-errors/">converting several files at once</a>.</li></ul>`,
+  },
+  {
+    slug: 'whatsapp-voice-message-to-mp3', date: '2026-10-12',
+    title: 'Converting a WhatsApp voice message to MP3',
+    description: 'Where WhatsApp keeps voice messages, why they are OPUS or OGG files that many apps will not open, and how to turn one into an MP3 without uploading it.',
+    html: `<p>WhatsApp voice messages are recorded with the Opus codec. It is very efficient for speech, which is why the files are tiny, but many editors, upload forms and older players do not open them. Converting one to MP3 fixes that.</p>
+<h2>What kind of file it is</h2>
+${T(['Where you got it', 'Typical file', 'Converter to use'], [
+      ['Android phone storage', 'PTT-…-WA0001.opus', L('opus', 'mp3', 'OPUS to MP3')],
+      ['WhatsApp Web or the desktop app (Download)', '.ogg', L('ogg', 'mp3', 'OGG to MP3')],
+      ['iPhone (Forward, then Save to Files)', '.opus, on older versions .m4a', `${L('opus', 'mp3', 'OPUS to MP3')} or ${L('m4a', 'mp3', 'M4A to MP3')}`],
+    ])}
+<p>The .opus and .ogg files contain the same kind of audio; only the name differs. Choose the converter that matches the ending of your file name.</p>
+<h2>Step 1: get the file</h2>
+<ul><li><strong>Android.</strong> Open your file manager and look in <em>Android › media › com.whatsapp › WhatsApp › Media › WhatsApp Voice Notes</em>. The files are sorted into folders by week. Or, in the chat, press and hold the message, tap Share and save it to your files.</li><li><strong>iPhone.</strong> Press and hold the voice message, tap Forward, then the share icon, then Save to Files.</li><li><strong>Computer.</strong> In WhatsApp Web or the desktop app, open the menu on the voice message and choose Download.</li></ul>
+<h2>Step 2: convert</h2>
+<ol class="steps"><li><strong>Open the converter</strong> from the table above, on the phone or the computer.</li><li><strong>Set quality to Small.</strong> It is more than a voice message needs.</li><li><strong>Choose the file.</strong> A voice message of a minute or two converts in a few seconds once the engine has loaded.</li></ol>
+<p>The message is converted on your own device and is not uploaded. For private conversations, which is what voice messages are, that matters more than usual. If you want to be sure, <a href="${base}/guides/are-online-file-converters-safe/">this guide</a> describes a one-minute offline test.</p>
+<h2>Why the MP3 is much bigger</h2>
+<p>This surprises people. WhatsApp records voice at a very low bitrate, and Opus copes with that well. MP3 needs far more data for the same result, and the lowest setting here is 128 kbps, about 1 MB per minute. A voice message of a few hundred kilobytes can easily become several megabytes. Nothing has gone wrong, and the larger file does not sound better than the original.</p>
+<h2>Things to know</h2>
+<ul><li><strong>Quality is fixed by the original.</strong> A voice message sounds like a phone call because it was recorded like one. Converting cannot improve it.</li><li><strong>Several messages become several files.</strong> You can select many at once and they are converted in turn, but they are not joined into one recording.</li><li><strong>Music or audio sent as a file is different.</strong> If someone sent an MP3 or M4A as an attachment rather than recording a voice message, it is already in that format and needs no conversion.</li><li><strong>For transcription,</strong> WAV is the safer target, because almost every transcription tool accepts it. Use ${L('opus', 'wav', 'OPUS to WAV')} or ${L('ogg', 'wav', 'OGG to WAV')}.</li></ul>`,
+  },
 ];
 
 export const guidePage = ({ config }, g) => ({
