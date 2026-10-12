@@ -1,5 +1,7 @@
 # SnapConvert — free in-browser file converter
 
+**Live site: https://snapconvertapp.com** · convert video, audio and images in the browser, nothing is uploaded.
+
 Static site. Video/audio conversion uses a vendored build of ffmpeg.wasm (`src/public/vendor/ffmpeg`, single-thread core, 32 MB), images use the Canvas API. No server, no uploads.
 
 ```bash
